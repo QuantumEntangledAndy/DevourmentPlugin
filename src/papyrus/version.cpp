@@ -28,7 +28,7 @@ namespace {
 	}
 }
 
-namespace Gts {
+namespace Devr {
 	bool RegisterVersion(IVirtualMachine* vm) {
 		vm->RegisterFunction("Version", PapyrusClass, GetVersion);
 		vm->RegisterFunction("VersionMajor", PapyrusClass, GetVersionMajor);

@@ -3,7 +3,7 @@
 
 using namespace RE;
 using namespace SKSE;
-using namespace Gts;
+using namespace Devr;
 
 namespace Hooks
 {

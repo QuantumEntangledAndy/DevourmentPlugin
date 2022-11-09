@@ -65,7 +65,7 @@ target_precompile_headers(${PROJECT_NAME}
         PRIVATE
         src/PCH.hpp)
 
-install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/Gts"
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/Devr"
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
 install(TARGETS ${PROJECT_NAME}

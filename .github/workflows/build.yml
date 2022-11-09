@@ -42,10 +42,10 @@ jobs:
       - uses: actions/upload-artifact@v2
         name: Upload package
         with:
-          name: GTSPlugin
+          name: DevrPlugin
           path: "contrib/Distribution/*"
       - uses: actions/upload-artifact@v2
         name: Upload debug info
         with:
-          name: GTSPluginDebugInfo
+          name: DevrPluginDebugInfo
           path: "contrib/*.pdb"

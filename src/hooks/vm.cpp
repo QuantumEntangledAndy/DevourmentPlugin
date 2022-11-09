@@ -4,7 +4,7 @@
 using namespace RE;
 using namespace RE::BSScript;
 using namespace RE::BSScript::Internal;
-using namespace Gts;
+using namespace Devr;
 
 namespace Hooks
 {

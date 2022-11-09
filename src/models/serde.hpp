@@ -4,7 +4,7 @@
 
 namespace SKSE;
 
-namespace Gts {
+namespace Devr {
 	class Serde {
 		// Name used for debug purposes
 		virtual std::string SerdeName();
