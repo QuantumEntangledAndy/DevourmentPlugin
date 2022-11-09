@@ -1,0 +1,12 @@
+{
+  "name": "devrplugin",
+  "version-string": "1.0.0",
+  "description": "Common Lib SSE plugin for Devourment.",
+  "features": {
+    "plugin": {
+      "description": "Build the SKSE plugin.",
+      "dependencies": ["commonlibsse-ng", "articuno"]
+    }
+  },
+  "default-features": ["plugin"]
+}

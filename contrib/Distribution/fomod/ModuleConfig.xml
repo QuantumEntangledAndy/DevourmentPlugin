@@ -1,0 +1,7 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
+  <moduleName>Devourment Plugin</moduleName>
+  <requiredInstallFiles>
+    <folder source="Config" destination="SKSE\Plugins"/>
+    <folder source="Plugin" destination="SKSE\Plugins" priority="0"/>
+  </requiredInstallFiles>
+</config>

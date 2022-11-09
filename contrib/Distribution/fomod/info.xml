@@ -1,0 +1,11 @@
+<fomod>
+  <Name>Devourment Plugin</Name>
+  <Author>QuantumEntangledAndy (sheepchaan@gmail.com)</Author>
+  <Version>1.0.0</Version>
+  <Description>Skyrim Plugin for Devourment Mod.</Description>
+  <Groups>
+    <element>
+      Gameplay
+    </element>
+  </Groups>
+</fomod>

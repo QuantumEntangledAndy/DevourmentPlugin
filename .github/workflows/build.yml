@@ -1,0 +1,51 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  native:
+    name: build
+    runs-on: windows-2019
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Get cmake
+        uses: lukka/get-cmake@latest
+      - name: Add msbuild to PATH
+        # This works with 2017+
+        uses: microsoft/setup-msbuild@v1.1
+      - name: Restore artifacts, or setup vcpkg (do not install any package)
+        uses: lukka/run-vcpkg@v10
+        with:
+          vcpkgGitCommitId: 3d8f78171a2a37d461077bf8d063256b63e25a4f
+      - name: Run CMake consuming CMakePreset.json and vcpkg.json by mean of vcpkg.
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: build-release-withdebuginfo-msvc
+          buildPreset: release-withdebuginfo-msvc
+      - name: Copy Plugin
+        shell: bash
+        run: |
+          mkdir contrib/Distribution/Plugin || exit 1
+          if [ -d contrib/Distribution/PluginDebug ]; then
+            if [ ! -d contrib/Distribution/PluginRelease ]; then
+              cp contrib/Distribution/PluginDebug/*.dll contrib/Distribution/Plugin/
+              cp contrib/Distribution/PluginDebug/*.pdb contrib/
+              rm -rf contrib/Distribution/PluginDebug
+            fi
+          fi
+          if [ -d contrib/Distribution/PluginRelease ]; then
+            cp contrib/Distribution/PluginRelease/*.dll contrib/Distribution/Plugin/
+            cp contrib/Distribution/PluginRelease/*.pdb contrib/
+            rm -rf contrib/Distribution/PluginRelease
+          fi
+      - uses: actions/upload-artifact@v2
+        name: Upload package
+        with:
+          name: GTSPlugin
+          path: "contrib/Distribution/*"
+      - uses: actions/upload-artifact@v2
+        name: Upload debug info
+        with:
+          name: GTSPluginDebugInfo
+          path: "contrib/*.pdb"
