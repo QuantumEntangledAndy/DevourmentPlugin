@@ -1,6 +1,6 @@
 #include "data/config.hpp"
 #include "hooks/hooks.hpp"
-#include "papyrus/papyrus.hpp"
+#include "papyrus/register.hpp"
 #include "data/plugin.hpp"
 #include "data/events.hpp"
 #include "data/cosave.hpp"
