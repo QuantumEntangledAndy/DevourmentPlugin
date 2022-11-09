@@ -1,9 +1,15 @@
-#include "data/config.hpp"
+// Hooks
 #include "hooks/hooks.hpp"
-#include "papyrus/register.hpp"
+// Models
+#include "models/events.hpp"
+// Data
+#include "data/config.hpp"
 #include "data/plugin.hpp"
-#include "data/events.hpp"
 #include "data/cosave.hpp"
+// Papyrus
+#include "papyrus/register.hpp"
+// Managers
+#include "managers/register.hpp"
 
 #include <stddef.h>
 #include <thread>
@@ -149,6 +155,7 @@ void InitializePapyrus() {
 }
 
 void InitializeEventSystem() {
+	RegisterManagers();
 }
 
 /**

@@ -1,8 +1,5 @@
 #include "hooks/havok.hpp"
-#include "util.hpp"
-#include "events.hpp"
-
-#include "managers/contact.hpp"
+#include "models/events.hpp"
 
 using namespace RE;
 using namespace SKSE;

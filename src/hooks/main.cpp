@@ -1,5 +1,5 @@
 #include "hooks/main.hpp"
-#include "data/events.hpp"
+#include "models/events.hpp"
 #include "data/time.hpp"
 #include "data/plugin.hpp"
 

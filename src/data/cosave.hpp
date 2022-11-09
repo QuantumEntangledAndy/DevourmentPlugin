@@ -1,7 +1,7 @@
 #pragma once
 // Module that holds data that is persistent across saves
 
-#include "data/serde.hpp"
+#include "models/serde.hpp"
 
 using namespace std;
 using namespace SKSE;

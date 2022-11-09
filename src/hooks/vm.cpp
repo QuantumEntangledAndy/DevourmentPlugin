@@ -1,5 +1,5 @@
 #include "hooks/vm.hpp"
-#include "data/events.hpp"
+#include "models/events.hpp"
 
 using namespace RE;
 using namespace RE::BSScript;

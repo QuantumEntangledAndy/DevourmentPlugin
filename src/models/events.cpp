@@ -1,4 +1,4 @@
-#include "data/events.hpp"
+#include "models/events.hpp"
 
 using namespace std;
 using namespace RE;
