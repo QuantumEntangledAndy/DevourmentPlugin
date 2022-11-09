@@ -4,19 +4,19 @@ using namespace SKSE;
 using namespace RE;
 
 namespace Devr {
-	CoSave& CoSave::GetSingleton() noexcept {
-		static CoSave instance;
+	Cosave& Cosave::GetSingleton() noexcept {
+		static Cosave instance;
 		return instance;
 	}
 
-	void Persistent::OnRevert(SerializationInterface*) {
+	void Cosave::OnRevert(SerializationInterface*) {
 	}
 
 	static RegisterForSerde(std::uint32_t tag, Serde* callback) {
 		this->serde_registry.try_emplace(tag, callback);
 	}
 
-	void Persistent::OnGameLoaded(SerializationInterface* serde) {
+	void Cosave::OnGameLoaded(SerializationInterface* serde) {
 		std::unique_lock lock(GetSingleton()._lock);
 
 		std::uint32_t type;
@@ -30,18 +30,18 @@ namespace Devr {
 				auto& serde = this->serde_registry.at(type);
 				serde.De(serde, version)
 			} catch (const std::out_of_range& oor) {
-				log::warn("Unknown record type in cosave ({}).", type);
+				log::warn("Unknown record type in Cosave ({}).", type);
 			}
 		}
 	}
 
-	void Persistent::OnGameSaved(SerializationInterface* serde) {
+	void Cosave::OnGameSaved(SerializationInterface* serde) {
 		std::unique_lock lock(GetSingleton()._lock);
 
 		for (auto const& [key, record]: this->serde_registry) {
 			auto version = record->SerVersion();
 			if (!serde->OpenRecord(key, version)) {
-				log::error("Unable to open {} record to write cosave data.", record->SerdeName());
+				log::error("Unable to open {} record to write Cosave data.", record->SerdeName());
 				continue;
 			} else {
 				record.Ser(serde, version);

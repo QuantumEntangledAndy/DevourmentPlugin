@@ -2,7 +2,7 @@
 // Serde generalisation
 //
 
-namespace SKSE;
+using namespace SKSE;
 
 namespace Devr {
 	class Serde {
@@ -17,5 +17,5 @@ namespace Devr {
 
 		// Serialisation version for new entries
 		virtual std::uint32_t SerVersion();
-	}
+	};
 }
