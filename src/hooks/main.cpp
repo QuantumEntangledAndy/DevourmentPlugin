@@ -19,7 +19,7 @@ namespace Hooks
 	void HookMainUpdate::Update(RE::Main* a_this, float a2)
 	{
 		_Update(a_this, a2);
-		Time::GetSingleton().Update();
+		Time::GetSingleton().Update(); // Always advance the time
 
 		static std::atomic_bool started = std::atomic_bool(false);
 		Plugin::SetOnMainThread(true);
