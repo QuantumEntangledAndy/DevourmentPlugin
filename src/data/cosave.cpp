@@ -12,7 +12,7 @@ namespace Devr {
 	void Cosave::OnRevert(SerializationInterface*) {
 	}
 
-	static RegisterForSerde(std::uint32_t tag, Serde* callback) {
+	static void Cosave::RegisterForSerde(std::uint32_t tag, Serde* callback) {
 		this->serde_registry.try_emplace(tag, callback);
 	}
 
@@ -23,12 +23,10 @@ namespace Devr {
 		std::uint32_t size;
 		std::uint32_t version;
 
-		SizeManager::GetSingleton().Reset();
-
 		while (serde->GetNextRecordInfo(type, version, size)) {
 			try {
-				auto& serde = this->serde_registry.at(type);
-				serde.De(serde, version)
+				auto& serde = Cosave::GetSingleton().serde_registry.at(type);
+				serde.De(serde, version);
 			} catch (const std::out_of_range& oor) {
 				log::warn("Unknown record type in Cosave ({}).", type);
 			}
@@ -38,7 +36,7 @@ namespace Devr {
 	void Cosave::OnGameSaved(SerializationInterface* serde) {
 		std::unique_lock lock(GetSingleton()._lock);
 
-		for (auto const& [key, record]: this->serde_registry) {
+		for (auto const& [key, record]: Cosave::GetSingleton().serde_registry) {
 			auto version = record->SerVersion();
 			if (!serde->OpenRecord(key, version)) {
 				log::error("Unable to open {} record to write Cosave data.", record->SerdeName());
