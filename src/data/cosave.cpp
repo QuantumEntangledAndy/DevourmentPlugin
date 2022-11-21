@@ -12,8 +12,8 @@ namespace Devr {
 	void Cosave::OnRevert(SerializationInterface*) {
 	}
 
-	static void Cosave::RegisterForSerde(std::uint32_t tag, Serde* callback) {
-		this->serde_registry.try_emplace(tag, callback);
+	void Cosave::RegisterForSerde(std::uint32_t tag, Serde* callback) {
+		Cosave::GetSingleton().serde_registry.try_emplace(tag, callback);
 	}
 
 	void Cosave::OnGameLoaded(SerializationInterface* serde) {
