@@ -19,16 +19,16 @@ namespace Devr {
 	void Cosave::OnGameLoaded(SerializationInterface* serde) {
 		std::unique_lock lock(GetSingleton()._lock);
 
-		std::uint32_t type;
+		std::uint32_t key;
 		std::uint32_t size;
 		std::uint32_t version;
 
-		while (serde->GetNextRecordInfo(type, version, size)) {
+		while (serde->GetNextRecordInfo(key, version, size)) {
 			try {
-				auto& serde = Cosave::GetSingleton().serde_registry.at(type);
-				serde.De(serde, version);
+				auto& record = Cosave::GetSingleton().serde_registry.at(key);
+				record->De(serde, version);
 			} catch (const std::out_of_range& oor) {
-				log::warn("Unknown record type in Cosave ({}).", type);
+				log::warn("Unknown record type in Cosave ({}).", key);
 			}
 		}
 	}
@@ -42,7 +42,7 @@ namespace Devr {
 				log::error("Unable to open {} record to write Cosave data.", record->SerdeName());
 				continue;
 			} else {
-				record.Ser(serde, version);
+				record->Ser(serde, version);
 			}
 		}
 	}
