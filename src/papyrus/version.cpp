@@ -30,7 +30,7 @@ namespace {
 
 namespace Devr {
 	bool RegisterVersion(IVirtualMachine* vm) {
-		vm->RegisterFunction("Version", PapyrusClass, GetVersion);
+		// vm->RegisterFunction("Version", PapyrusClass, GetVersion);
 		vm->RegisterFunction("VersionMajor", PapyrusClass, GetVersionMajor);
 		vm->RegisterFunction("VersionMinor", PapyrusClass, GetVersionMinor);
 		vm->RegisterFunction("VersionPatch", PapyrusClass, GetVersionPatch);
