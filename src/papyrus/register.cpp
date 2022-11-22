@@ -7,7 +7,7 @@ using namespace RE;
 using namespace RE::BSScript;
 
 namespace Devr {
-	bool register_papyrus(IVirtualMachine* vm) {
+	bool RegisterPapyrus(IVirtualMachine* vm) {
 		if (!RegisterVersion(vm)) {
 			return false;
 		}
