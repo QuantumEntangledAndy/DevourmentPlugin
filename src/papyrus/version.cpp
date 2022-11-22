@@ -11,7 +11,7 @@ namespace {
 	const int PATCH = 1;
 
 	constexpr std::string_view PapyrusClass = "DevrVersion";
-	BSFixedString GetVersionString(StaticFunctionTag*) {
+	std::string GetVersionString(StaticFunctionTag*) {
 		return std::format("Devourment Plugin {}.{}.{}", MAJOR, MINOR, PATCH);
 	}
 
