@@ -139,9 +139,9 @@ void InitializeSerialization() {
 	log::trace("Initializing cosave serialization...");
 	auto* serde = GetSerializationInterface();
 	serde->SetUniqueID(_byteswap_ulong('DEVR'));
-	serde->SetSaveCallback(CoSave::OnGameSaved);
-	serde->SetRevertCallback(CoSave::OnRevert);
-	serde->SetLoadCallback(CoSave::OnGameLoaded);
+	serde->SetSaveCallback(Cosave::OnGameSaved);
+	serde->SetRevertCallback(Cosave::OnRevert);
+	serde->SetLoadCallback(Cosave::OnGameLoaded);
 	log::info("Cosave serialization initialized.");
 }
 
