@@ -6,6 +6,7 @@
 #include "data/config.hpp"
 #include "data/plugin.hpp"
 #include "data/cosave.hpp"
+#include "data/forms.hpp"
 // Papyrus
 #include "papyrus/register.hpp"
 // Managers
@@ -155,6 +156,7 @@ void InitializePapyrus() {
 }
 
 void InitializeEventSystem() {
+	EventDispatcher::AddListener(&Forms::GetSingleton());
 	RegisterManagers();
 }
 
