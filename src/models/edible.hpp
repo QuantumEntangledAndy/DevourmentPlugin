@@ -25,6 +25,12 @@ namespace Devr {
 			bool HasKeywordString(std::string_view keyword);
 			bool IsInCombat();
 			Actor* GetCombatTarget();
+			ATTACK_STATE_ENUM GetAttackState();
+			const NiPoint3 GetPosition();
+			bool IsBleedingOut();
+			bool hasMagicEffectWithKeyword(std::string_view keywork);
+			bool IsChild();
+			bool IsPlayer();
 
 			SEX GetSex();
 
@@ -35,6 +41,6 @@ namespace Devr {
 
 			Edible(TESObjectREFR* object);
 
-			Stomach stomach;
+			Stomach stomach; // TODO: Fix this so that it points to same object weather Pred or Prey
 	};
 }

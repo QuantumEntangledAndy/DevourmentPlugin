@@ -14,9 +14,13 @@ namespace Devr {
 		public:
 			static Prey& FromActor(Actor* actor);
 
-			bool IsValidPrey();
+			bool IsInStomach();
+
+			const Actor* GetActor();
+
 		protected:
 			Prey(Actor* actor);
 			NiPointer<Actor> actor;
+			Stomach* inside; // Stomach the prey is inside. Nullptr if not inside
 	};
 }

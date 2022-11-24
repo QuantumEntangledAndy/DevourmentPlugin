@@ -8,6 +8,8 @@ using namespace SKSE;
 using namespace RE;
 
 namespace {
+	const float BASE_SWALLOW_RANGE = 225.0;
+
 	bool IsInBlacklist(Actor* actor) {
 		return false; // TODO: Add actual blacklist logic
 	}
@@ -80,6 +82,14 @@ namespace Devr {
 		}
 	}
 
+	bool Pred::OnCooldown() {
+		return lastSucessfulVoreTime + GetCooldown() <= Time::WorldTimeElapsed();
+	}
+
+	float Pred::SwallowRange() {
+		return (BASE_SWALLOW_RANGE + GetLength()) * GetScale();
+	}
+
 	bool Pred::ValidPred() {
 		if (actor.IsChild() || IsInBlacklist(actor)) {
 			return false;
@@ -106,7 +116,19 @@ namespace Devr {
 	 * @return       [description]
 	 */
 	bool Pred::IsValidPrey(Prey* prey) {
-		if (!prey.IsValidPrey()) {
+		if (!prey) {
+			return false;
+		}
+		if (prey->IsChild()) {
+			return false;
+		}
+		if (prey->IsPlayer() && !CanVorePlayer()) {
+			return false;
+		}
+		if (prey->IsInStomach()) {
+			return false;
+		}
+		if ((pred->GetPosition() - prey->GetPosition()).Length() > SwallowRange()) {
 			return false;
 		}
 		if (pred->IsDead() && !IsInFaction("CorpseVore")) {
@@ -121,10 +143,32 @@ namespace Devr {
 		if (pred->HasKeywordString("ActorTypeDwarven") && !HasPerk("DigestionDwemer")) {
 			return false;
 		}
+		if (prey->HasMagicEffectWithKeyword("BeingSwallowed")) {
+			return false;
+		}
+		bool doBleedoutVore = (GetPluginInfo("SexLabDefeat.esp") == nullptr);
+		if (!doBleedoutVore && prey->IsBleedingOut()) {
+			return false;
+		}
+
 		if (stomach.Room() < prey->GetVolume()) {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Vore the target.
+	 *
+	 * This makes no checks as it assume that they have Already
+	 * been made by calling IsValidPrey preior to calling this
+	 */
+	void Pred::Vore(Pred* prey) {
+		Forms::CastSpell(actor->get(), prey->GetActor(), "VoreSpell");
+	}
+
+	const Actor* Pred::GetActor() {
+		return actor->get();
 	}
 
 	Pred::Pred(Actor* actor) : Edible(actor), actor(NiObject<Actor>(actor)) {

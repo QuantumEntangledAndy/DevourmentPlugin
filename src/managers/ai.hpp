@@ -4,15 +4,22 @@
  */
 
 #include "models/events.hpp"
+#include "models/timer.hpp"
 
 namespace Devr {
+	struct AiData {
+		Prey* lastPrey = nullptr;
+		Timer searchCooldown = Timer(6.0);
+	};
+
 	class Ai : public EventListener {
 		public:
 			virtual void Update() override;
 
+			AiData& GetAiData(Pred* pred);
+			Prey* GetAiPrey(Pred* pred);
+
 		private:
-			float swallowRange = 225.0;
-			float cooldownNPC = 1.0;
-			float cooldownCreature = 1.0;
+			std::unordered_map<Pred*, AiData> data;
 	}
 }

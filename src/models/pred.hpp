@@ -18,16 +18,19 @@ namespace Devr {
 		public:
 			static Pred* FromActor(Actor* actor);
 
-			virtual Pred* AsPred() {
-				return this;
-			}
-
 			bool IsValidPred();
 			bool IsValidPrey(Prey* prey);
 			float GetCooldown();
+			bool OnCooldown();
+			float SwallowRange();
+			void Vore(Prey* prey);
+
+
+			const Actor* GetActor();
 
 		protected:
 			Pred(Actor* actor);
 			NiPointer<Actor> actor;
+			float lastSucessfulVoreTime = -1e8 .0; // Time of last vore in seconds of game runtime
 	};
 }

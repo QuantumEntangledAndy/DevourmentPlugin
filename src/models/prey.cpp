@@ -31,21 +31,15 @@ namespace Devr {
 
 		// If the prey is not valid then we return nullptr
 		auto prey = preyData.at(actor);
-		if (prey.IsValidPrey()) {
-			return &prey;
-		} else {
-			return nullptr;
-		}
+		return &prey;
 	}
 
-	bool Prey::IsValidPrey() {
-		if (actor->IsChild()) {
-			return false;
-		}
-		if (actor->formID == 0x14 && !CanVorePlayer()) {
-			return false;
-		}
-		return true;
+	bool Prey::IsInStomach() {
+		return inside != nullptr;
+	}
+
+	const Actor* Prey::GetActor() {
+		return actor->get();
 	}
 
 	Prey::Prey(Actor* actor) : Edible(actor), actor(NiPointer<Actor>(actor)) {

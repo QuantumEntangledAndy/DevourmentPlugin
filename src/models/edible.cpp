@@ -86,12 +86,67 @@ namespace Devr {
 		}
 	}
 
+	ATTACK_STATE_ENUM Edible::GetAttackState() {
+		auto actor = skyrim_cast<Actor*>(object.get());
+		if (actor) {
+			return actor->GetAttackState();
+		} else {
+			return ATTACK_STATE_ENUM::kNone;
+		}
+	}
+
 	SEX Edible::GetSex() {
 		auto actor = skyrim_cast<Actor*>(object.get());
 		if (actor) {
 			return actor->GetActorBase()->GetSex();
 		} else {
 			return SEX::kNone;
+		}
+	}
+
+	bool Edible::HasMagicEffectWithKeyword(std::string_view keyword) {
+		auto actor = skyrim_cast<Actor*>(object.get());
+		if (actor) {
+			for (auto meff: actor->GetActiveEffectList()) {
+				auto spell = meff->GetBaseObject();
+				if (spell->HasKeywordString(keyword)) {
+					return true;
+				}
+			}
+			return false;
+		} else {
+			return false;
+		}
+	}
+
+	bool Edible::IsChild() {
+		auto actor = skyrim_cast<Actor*>(object.get());
+		if (actor) {
+			return actor->IsChild();
+		} else {
+			return false;
+		}
+	}
+
+	bool Edible::IsPlayer() {
+		auto actor = skyrim_cast<Actor*>(object.get());
+		if (actor) {
+			return actor->formID == 0x14;
+		} else {
+			return false;
+		}
+	}
+
+	const NiPoint3 Edible::GetPosition() {
+		return object->GetPosition();
+	}
+
+	bool Edible::IsBleedingOut() {
+		auto actor = skyrim_cast<Actor*>(object.get());
+		if (actor) {
+			return actor->IsBleedingOut();
+		} else {
+			return false;
 		}
 	}
 
