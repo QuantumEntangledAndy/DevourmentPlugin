@@ -12,5 +12,7 @@ namespace Devr {
 
 		private:
 			float swallowRange = 225.0;
+			float cooldownNPC = 1.0;
+			float cooldownCreature = 1.0;
 	}
 }
