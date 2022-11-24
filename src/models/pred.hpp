@@ -23,14 +23,11 @@ namespace Devr {
 			}
 
 			bool IsValidPred();
-			bool IsValidPrey(Pred* pred);
+			bool IsValidPrey(Prey* prey);
 			float GetCooldown();
-
-			bool CanNecroVore();
 
 		protected:
 			Pred(Actor* actor);
 			NiPointer<Actor> actor;
-			Stomach stomach;
 	};
 }

@@ -23,18 +23,25 @@ namespace {
 namespace Devr {
 	void Ai::Update() {
 		for (auto actor: FindActors()) {
-			auto pred = Pred::GetPred(actor);
-			if (!pred.ValidPred()) {
+			auto pred = Pred::FromActor(actor);
+			if (!pred) {
 				continue;
 			}
 
 			std::string predName = pre.Name();
-			float reach = swallowRange + pred.GetLength();
+			float reach = swallowRange + pred->GetLength();
 			bool doBleedoutVore = (GetPluginInfo("SexLabDefeat.esp") == nullptr);
-			bool doCorpseVore = pred.IsInFaction("CorpseVore");
 
-			float cooldownTime = pred.GetCooldown();
+			float cooldownTime = pred->GetCooldown();
 
+			auto currentTarget = pred->GetCombatTarget();
+			auto prey = Pref::FromActor(currentTarget);
+			if (prey) {
+				if (CombatVoreCheck(pred, prey)) {
+					// Gets s list of combat spells
+					// TODO: Redesign
+				}
+			}
 		}
 	}
 }

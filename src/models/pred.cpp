@@ -106,21 +106,26 @@ namespace Devr {
 	 * @return       [description]
 	 */
 	bool Pred::IsValidPrey(Prey* prey) {
-    if (!prey.IsValidPrey()) {
-      return false;
-    }
-    if (!)
+		if (!prey.IsValidPrey()) {
+			return false;
+		}
+		if (pred->IsDead() && !IsInFaction("CorpseVore")) {
+			return false;
+		}
+		if (pred->HasKeywordString("ActorTypeUndead") && !HasPerk("DigestionUndead")) {
+			return false;
+		}
+		if (pred->HasKeywordString("ActorTypeDaedra") && !HasPerk("DigestionDaedric")) {
+			return false;
+		}
+		if (pred->HasKeywordString("ActorTypeDwarven") && !HasPerk("DigestionDwemer")) {
+			return false;
+		}
+		if (stomach.Room() < prey->GetVolume()) {
+			return false;
+		}
+		return true;
 	}
-
-  float Pred::StomachRoom() {
-
-  }
-  float Pred::TotalStomachRoom() {
-
-  }
-  float Pred::StomachRoomPercent() {
-    return StomachRoom()*100/StomachRoomPercent();
-  }
 
 	Pred::Pred(Actor* actor) : Edible(actor), actor(NiObject<Actor>(actor)) {
 

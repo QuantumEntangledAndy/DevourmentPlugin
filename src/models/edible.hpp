@@ -21,8 +21,10 @@ namespace Devr {
 			float GetScale();
 
 			bool IsInFaction(std::string_view tag);
+			bool HasPrek(std::string_view tag);
 			bool HasKeywordString(std::string_view keyword);
 			bool IsInCombat();
+			Actor* GetCombatTarget();
 
 			SEX GetSex();
 

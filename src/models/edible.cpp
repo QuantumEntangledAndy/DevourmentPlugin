@@ -51,6 +51,14 @@ namespace Devr {
 			return false;
 		}
 	}
+	bool Edible::HasPerk(std::string_view tag) {
+		auto actor = skyrim_cast<Actor*>(object.get());
+		if (actor) {
+			return Forms::HasPerk(actor, tag);
+		} else {
+			return false;
+		}
+	}
 
 	bool Edible::HasKeywordString(std::string_view keyword) {
 		return object->HasKeywordString(keyword);
@@ -62,6 +70,19 @@ namespace Devr {
 			return actor->IsInCombat();
 		} else {
 			return false;
+		}
+	}
+	Actor* Edible::GetCombatTarget() {
+		auto actor = skyrim_cast<Actor*>(object.get());
+		if (actor) {
+			auto target = actor->currentCombatTarget;
+			if (target) {
+				return target.get();
+			} else {
+				return nullptr;
+			}
+		} else {
+			return nullptr;
 		}
 	}
 
