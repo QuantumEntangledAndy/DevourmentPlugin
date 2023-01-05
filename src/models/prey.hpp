@@ -11,9 +11,9 @@ using namespace RE;
 
 namespace Devr {
 	enum class Ternary {
-		Yes;
-		No;
-		Maybe;
+		Yes,
+		No,
+		Maybe,
 	};
 
 	class Prey : public DevrObj {

@@ -3,7 +3,7 @@
  * Handles predator related functions
  */
 
-#include "moduels/prey.hpp"
+#include "models/prey.hpp"
 
 using namespace std;
 using namespace SKSE;
@@ -30,7 +30,7 @@ namespace Devr {
 			SEX GetSex();
 
 			bool IsInFaction(std::string_view tag);
-			bool HasPrek(std::string_view tag);
+			bool HasPerk(std::string_view tag);
 
 			bool IsInCombat();
 			Actor* GetCombatTarget();

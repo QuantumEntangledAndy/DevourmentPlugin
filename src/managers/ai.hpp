@@ -1,6 +1,6 @@
 #pragma once
 /**
- * Handles comat AI
+ * Handles combat AI
  */
 
 #include "models/events.hpp"
@@ -13,13 +13,13 @@ namespace Devr {
 	};
 
 	class Ai : public EventListener {
-		public:
-			virtual void Update() override;
+    public:
+        virtual void Update() override;
 
-			AiData& GetAiData(Pred* pred);
-			Prey* GetAiPrey(Pred* pred);
+        AiData& GetAiData(Pred* pred);
+        Prey* GetAiPrey(Pred* pred);
 
-		private:
-			std::unordered_map<Pred*, AiData> data;
-	}
+    private:
+        std::unordered_map<Pred*, AiData> data;
+    };
 }
