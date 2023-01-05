@@ -6,43 +6,28 @@ using namespace std;
 using namespace SKSE;
 using namespace RE;
 
-namespace {
-	bool CanVorePlayer() {
-		return true; // TODO: Add player check
-	}
-}
-
 namespace Devr {
 	/**
-	 * Get the prey data for an actor/object
-	 * @param  actor               [description]
-	 * @return       [description]
+	 * By default all are valid prey
+	 *
+	 * This method may be overridden by
+	 * the sub classes to change this
+	 *
+	 * Maybe is used to say this class says they
+	 * can be
 	 */
-	Prey* Prey::FromActor(Actor* actor) {
-		static std::mutex predDataLock;
-
-		// Lock this to avoid concurrent access to preyData
-		std::unique_lock lock(predDataLock);
-		static std::unordered_map<Actor*, unique_ptr<Prey> > preyData;
-		if (preyData.find(actor) == preyData.end()) {
-			// Insert it
-			preyData.try_emplace(actor);
+	Ternary Prey::IsValidPrey() {
+		if (IsInStomach()) {
+			return Ternary::No;
 		}
-
-		// If the prey is not valid then we return nullptr
-		auto prey = preyData.at(actor);
-		return &prey;
+		return Ternary::Maybe;
 	}
 
 	bool Prey::IsInStomach() {
 		return inside != nullptr;
 	}
 
-	const Actor* Prey::GetActor() {
-		return actor->get();
-	}
-
-	Prey::Prey(Actor* actor) : Edible(actor), actor(NiPointer<Actor>(actor)) {
+	Prey::Prey(TESObjectREFR* inobject) : DevrObj(inobject) {
 
 	}
 

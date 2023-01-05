@@ -3,24 +3,26 @@
  * Handles prey related functions
  */
 
-#include "models/edible.hpp"
+#include "models/devrobj.hpp"
 
 using namespace std;
 using namespace SKSE;
 using namespace RE;
 
 namespace Devr {
-	class Prey : public Edible {
+	enum class Ternary {
+		Yes;
+		No;
+		Maybe;
+	};
+
+	class Prey : public DevrObj {
 		public:
-			static Prey& FromActor(Actor* actor);
-
-			bool IsInStomach();
-
-			const Actor* GetActor();
+			virtual Ternary IsValidPrey();
+			virtual bool IsInStomach();
 
 		protected:
-			Prey(Actor* actor);
-			NiPointer<Actor> actor;
+			Prey(TESObjectREFR* actor);
 			Stomach* inside; // Stomach the prey is inside. Nullptr if not inside
 	};
 }
