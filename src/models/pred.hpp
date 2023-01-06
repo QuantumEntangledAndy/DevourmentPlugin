@@ -3,7 +3,7 @@
  * Handles predator related functions
  */
 
-#include "moduels/prey.hpp"
+#include "models/prey.hpp"
 
 using namespace std;
 using namespace SKSE;
